@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Typography Variables */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  
+  /* Typography */
+  --font-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-secondary: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Global Typography */
+html {
+  font-family: var(--font-secondary);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background-color: white;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Headings use Montserrat */
+h1, h2, h3, h4, h5, h6,
+.heading,
+.title {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Specific heading weights */
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+h4, h5, h6 {
+  font-weight: 500;
+}
+
+/* Button and interactive elements */
+button,
+.button,
+.btn {
+  font-family: var(--font-primary);
+  font-weight: 500;
+}
+
+/* Navigation elements */
+nav,
+.nav,
+.navbar {
+  font-family: var(--font-primary);
+}
+
+/* Body text and paragraphs use Open Sans */
+p,
+.text,
+.description,
+.content {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+}
+
+/* Font weight utilities */
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+/* Font family utilities */
+.font-primary {
+  font-family: var(--font-primary);
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
+}
+
+main {
+  min-height: calc(100vh - 150px);
+  padding-top: 76px;
+  padding-bottom: 50px;
+}

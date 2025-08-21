@@ -1,0 +1,385 @@
+/* Navbar Styles - Mobile First Approach */
+.header {
+  background-color: white;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 1rem;
+  max-width: 100%;
+}
+
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.logoIcon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.logoText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Desktop Navigation - Hidden by default */
+.desktopNav {
+  display: none;
+}
+
+/* Tablet Navigation - Hidden by default */
+.tabletNav {
+  display: none;
+  flex: 1;
+  margin: 0 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabletNav::-webkit-scrollbar {
+  display: none;
+}
+
+.tabletNavInner {
+  min-width: max-content;
+  padding: 0 0.5rem;
+}
+
+.tabletLink {
+  color: #495057;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tabletLink:hover {
+  color: #4A90E2;
+  background-color: #f8f9fa;
+}
+
+/* Desktop Link Styles */
+.link {
+  color: #495057;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: #4A90E2;
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4A90E2, #357ABD);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.link:hover::after {
+  width: 80%;
+}
+
+.linkActive {
+  color: #4A90E2;
+  background-color: #f8f9fa;
+}
+
+.linkActive::after {
+  width: 80%;
+}
+
+/* Right Section */
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Social Icons - Hidden by default */
+.socialIcons {
+  display: none;
+}
+
+.socialIcon {
+  color: #6c757d;
+  transition: all 0.2s ease;
+}
+
+.socialIcon:hover {
+  color: #4A90E2;
+  transform: translateY(-2px);
+  background-color: #f8f9fa;
+}
+
+/* Mobile Menu */
+.burger {
+  display: block;
+}
+
+/* Mobile Drawer */
+.drawer {
+  padding: 1rem;
+}
+
+.mobileLink {
+  color: #495057;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.mobileLink:hover {
+  color: #4A90E2;
+  background-color: #f8f9fa;
+  border-color: #4A90E2;
+  transform: translateX(4px);
+}
+
+.mobileLinkActive {
+  color: #4A90E2;
+  background-color: #f0f8ff;
+  border-color: #4A90E2;
+}
+
+.mobileSocial {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Responsive Breakpoints */
+
+/* Mobile Small (320px - 479px) */
+@media (max-width: 479px) {
+  .inner {
+    height: 55px;
+    padding: 0 0.75rem;
+  }
+  
+  .logoIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Mobile Large (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .inner {
+    height: 60px;
+    padding: 0 1rem;
+  }
+  
+  .logoIcon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .inner {
+    height: 65px;
+    padding: 0 1.5rem;
+  }
+  
+  .logoIcon {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .tabletNav {
+    display: block;
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .burger {
+    display: none;
+  }
+}
+
+/* Desktop Small (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .inner {
+    height: 70px;
+    padding: 0 2rem;
+  }
+  
+  .logoIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .desktopNav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .burger {
+    display: none;
+  }
+  
+  .tabletNav {
+    display: none;
+  }
+}
+
+/* Desktop Large (1200px+) */
+@media (min-width: 1200px) {
+  .inner {
+    height: 70px;
+    padding: 0 3rem;
+  }
+  
+  .logoIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .desktopNav {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .burger {
+    display: none;
+  }
+  
+  .tabletNav {
+    display: none;
+  }
+}
+
+/* High-resolution displays */
+@media (min-width: 1440px) {
+  .inner {
+    padding: 0 4rem;
+  }
+  
+  .desktopNav {
+    gap: 2.5rem;
+  }
+  
+  .link {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* Ultra-wide displays */
+@media (min-width: 1920px) {
+  .inner {
+    padding: 0 6rem;
+  }
+}
+
+/* Touch devices optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .link:hover::after {
+    width: 0;
+  }
+  
+  .link:active {
+    transform: scale(0.98);
+  }
+  
+  .mobileLink:hover {
+    transform: none;
+  }
+  
+  .mobileLink:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .logoIcon,
+  .link,
+  .tabletLink,
+  .mobileLink,
+  .socialIcon {
+    transition: none;
+  }
+  
+  .link::after {
+    transition: none;
+  }
+}
