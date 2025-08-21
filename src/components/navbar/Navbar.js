@@ -28,6 +28,7 @@ import classes from './Navbar.module.css';
 
 const navigation = [
   { name: 'Sobre el Proyecto', href: '/proyecto' },
+  { name: 'Mapa de Servicios', href: '/mapa' },
   { name: 'Chatear', href: '/chat' },
   { name: 'Preguntas y consultas', href: '/consultas' },
   { name: 'Contactos', href: '/contactos' }

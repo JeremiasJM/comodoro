@@ -72,7 +72,7 @@ export default function App({ Component, pageProps }) {
         <ModalsProvider>
           <Notifications />
           <Head>
-            <title>Health Assistant</title>
+            <title>Comodoro Salud</title>
             <meta name="description" content="Tu asistente de salud personal" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             {/* Google Fonts */}
