@@ -2,17 +2,13 @@ import { MantineProvider, AppShell, createTheme } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 import Navbar from '@/components/navbar/Navbar';
+import Footer from '@/components/Footer';
 import FloatingChat from '@/components/FloatingChat';
 
 import Head from 'next/head';
 import '@mantine/core/styles.css';
 import '@/styles/globals.css';
-//import '@/styles/swagger.ui.css';
 import '@mantine/notifications/styles.css';
-//import '@mantine/spotlight/styles.css';
-//import '@mantine/dropzone/styles.css';
-//import '@mantine/carousel/styles.css';
-//import '@mantine/dates/styles.css';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
@@ -83,13 +79,15 @@ export default function App({ Component, pageProps }) {
               rel="stylesheet" 
             />
           </Head>
+          
           <AppShell
             header={{ height: 70 }}
-            padding="md"
+            padding="0"
           >
             <Navbar />
             <AppShell.Main>
               <Component {...pageProps} />
+              <Footer />
             </AppShell.Main>
             
             {/* Floating Chat - Available on all pages */}

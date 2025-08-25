@@ -13,7 +13,8 @@ import {
   Image,
   Anchor,
   Collapse,
-  UnstyledButton
+  UnstyledButton,
+  useMatches
 } from '@mantine/core';
 import {
   IconBrandFacebook,
@@ -36,20 +37,28 @@ const navigation = [
 
 const Navbar = () => {
   const [opened, setOpened] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
-    };
+  // Usar useMatches de Mantine para responsividad
+  const isMobile = useMatches({
+    base: true,
+    sm: true,
+    md: false,
+  });
 
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  const isTablet = useMatches({
+    base: false,
+    sm: false,
+    md: true,
+    lg: false,
+  });
+
+  const isDesktop = useMatches({
+    base: false,
+    sm: false,
+    md: false,
+    lg: true,
+  });
 
   // Cerrar el drawer cuando cambie la ruta
   useEffect(() => {
@@ -67,8 +76,8 @@ const Navbar = () => {
             </Box>
           </Group>
 
-          {/* Desktop Navigation - Solo visible en desktop */}
-          {!isMobile && !isTablet && (
+          {/* Desktop Navigation */}
+          {isDesktop && (
             <Group className={classes.desktopNav} gap="xl">
               {navigation.map((item) => (
                 <Link 
@@ -82,7 +91,7 @@ const Navbar = () => {
             </Group>
           )}
 
-          {/* Tablet Navigation - Horizontal scrollable */}
+          {/* Tablet Navigation */}
           {isTablet && (
             <Box className={classes.tabletNav}>
               <Group gap="md" className={classes.tabletNavInner}>
@@ -101,7 +110,7 @@ const Navbar = () => {
 
           {/* Right Section */}
           <Group className={classes.rightSection}>
-            {/* Social Icons - Solo visible en desktop */}
+            {/* Social Icons - Solo visible en tablet y desktop */}
             {!isMobile && (
               <Group className={classes.socialIcons} gap="xs">
                 <ActionIcon
@@ -141,6 +150,7 @@ const Navbar = () => {
                 onClick={() => setOpened((o) => !o)}
                 className={classes.burger}
                 size="sm"
+                color="#4A90E2"
               />
             )}
           </Group>
@@ -148,73 +158,84 @@ const Navbar = () => {
       </AppShell.Header>
 
       {/* Mobile Drawer */}
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title={
-          <Group>
-            <Box className={classes.logoIcon}>
-              <IconHelp size={24} color="#4A90E2" />
-            </Box>
-            <Text size="lg" fw={700} c="#4A90E2">
-              Menú
-            </Text>
-          </Group>
-        }
-        size="sm"
-        position="right"
-        className={classes.drawer}
-        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
-      >
-        <Stack gap="sm">
-          {navigation.map((item) => (
-            <UnstyledButton
-              key={item.name}
-              component={Link}
-              href={item.href}
-              className={`${classes.mobileLink} ${router.pathname === item.href ? classes.mobileLinkActive : ''}`}
-              onClick={() => setOpened(false)}
-            >
-              <Text size="md" fw={500}>
-                {item.name}
+      {isMobile && (
+        <Drawer
+          opened={opened}
+          onClose={() => setOpened(false)}
+          title={
+            <Group>
+              <Box className={classes.logoIcon}>
+                <IconHelp size={24} color="#4A90E2" />
+              </Box>
+              <Text size="lg" fw={700} c="#4A90E2">
+                Menú
               </Text>
-            </UnstyledButton>
-          ))}
-          
-          <Box className={classes.mobileSocial}>
-            <Text size="sm" fw={500} mb="xs" c="dimmed">Síguenos</Text>
-            <Group gap="xs">
-              <ActionIcon
-                variant="light"
-                size="lg"
-                component="a"
-                href="#"
-                className={classes.socialIcon}
-              >
-                <IconBrandFacebook size={20} />
-              </ActionIcon>
-              <ActionIcon
-                variant="light"
-                size="lg"
-                component="a"
-                href="#"
-                className={classes.socialIcon}
-              >
-                <IconBrandTwitter size={20} />
-              </ActionIcon>
-              <ActionIcon
-                variant="light"
-                size="lg"
-                component="a"
-                href="#"
-                className={classes.socialIcon}
-              >
-                <IconHelp size={20} />
-              </ActionIcon>
             </Group>
-          </Box>
-        </Stack>
-      </Drawer>
+          }
+          size="sm"
+          position="right"
+          className={classes.drawer}
+          overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+          styles={{
+            root: {
+              position: 'fixed',
+              zIndex: 1000,
+            },
+            inner: {
+              position: 'fixed',
+            }
+          }}
+        >
+          <Stack gap="sm">
+            {navigation.map((item) => (
+              <UnstyledButton
+                key={item.name}
+                component={Link}
+                href={item.href}
+                className={`${classes.mobileLink} ${router.pathname === item.href ? classes.mobileLinkActive : ''}`}
+                onClick={() => setOpened(false)}
+              >
+                <Text size="md" fw={500}>
+                  {item.name}
+                </Text>
+              </UnstyledButton>
+            ))}
+            
+            <Box className={classes.mobileSocial}>
+              <Text size="sm" fw={500} mb="xs" c="dimmed">Síguenos</Text>
+              <Group gap="xs">
+                <ActionIcon
+                  variant="light"
+                  size="lg"
+                  component="a"
+                  href="#"
+                  className={classes.socialIcon}
+                >
+                  <IconBrandFacebook size={20} />
+                </ActionIcon>
+                <ActionIcon
+                  variant="light"
+                  size="lg"
+                  component="a"
+                  href="#"
+                  className={classes.socialIcon}
+                >
+                  <IconBrandTwitter size={20} />
+                </ActionIcon>
+                <ActionIcon
+                  variant="light"
+                  size="lg"
+                  component="a"
+                  href="#"
+                  className={classes.socialIcon}
+                >
+                  <IconHelp size={20} />
+                </ActionIcon>
+              </Group>
+            </Box>
+          </Stack>
+        </Drawer>
+      )}
     </>
   );
 };

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "local": "env-cmd -f environments/.env.local next dev -p 3000",
+    "local": "env-cmd -f environments/.env.local next dev -p 3003",
     "dev": "env-cmd -f environments/.env.dev next dev -p 3008",
     "build": "next build",
     "start": "env-cmd -f environments/.env.prod next start -p 3009",

@@ -1,6 +1,31 @@
 import { Container, Grid, Loader, Title, Text, Box, Stack, Button, Group, Card, SimpleGrid, ThemeIcon } from "@mantine/core";
 import { IconHeartHandshake, IconMessageCircle, IconQuestionMark, IconPhone } from "@tabler/icons-react";
 import Link from "next/link";
+import dynamic from 'next/dynamic';
+
+// Importar el mapa compacto dinámicamente para evitar problemas de SSR
+const CompactMap = dynamic(() => import('@/components/InteractiveMap/CompactMap'), {
+  ssr: false,
+  loading: () => (
+    <Box 
+      h={400} 
+      bg="gray.1" 
+      radius="md" 
+      style={{ 
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Stack align="center" ta="center">
+        <Loader size="lg" />
+        <Text size="lg" fw={500} c="gray.6">
+          Cargando mapa...
+        </Text>
+      </Stack>
+    </Box>
+  )
+});
 
 const features = [
   {
@@ -99,26 +124,10 @@ export default function Home() {
           <Title order={2} ta="center" mb="md">
             Encontrá un centro de salud cercano
           </Title>
-          <Box 
-            h={300} 
-            bg="gray.1" 
-            radius="md" 
-            style={{ 
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23e9ecef" fill-opacity="0.4"%3E%3Cpath d="M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z"/%3E%3C/g%3E%3C/svg%3E")',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <Stack align="center" ta="center">
-              <Text size="lg" fw={500} c="gray.6">
-                Mapa de centros de salud
-              </Text>
-              <Text size="sm" c="gray.5">
-                Próximamente disponible
-              </Text>
-            </Stack>
-          </Box>
+          <Text size="md" ta="center" c="dimmed" mb="xl" maw={600} mx="auto">
+            Usa nuestro mapa interactivo para encontrar centros de salud, hospitales y clínicas en Comodoro Rivadavia.
+          </Text>
+          <CompactMap />
         </Box>
       </Stack>
 

@@ -1,5 +1,5 @@
 import { Container, Title, Text, Box, Stack, Card, Group, ThemeIcon, Button, SimpleGrid } from '@mantine/core';
-import { IconPhone, IconMail, IconMapPin, IconClock, IconEmergency } from '@tabler/icons-react';
+import { IconPhone, IconMail, IconMapPin, IconClock, IconAlertTriangle } from '@tabler/icons-react';
 
 const contactInfo = [
   {
@@ -69,7 +69,7 @@ export default function Contactos() {
         <Card shadow="sm" padding="xl" radius="md" withBorder bg="red.0">
           <Group>
             <ThemeIcon size="xl" radius="md" color="red">
-              <IconEmergency size={32} />
+              <IconAlertTriangle size={32} />
             </ThemeIcon>
             <Box flex={1}>
               <Title order={3} c="red">Emergencias Médicas</Title>

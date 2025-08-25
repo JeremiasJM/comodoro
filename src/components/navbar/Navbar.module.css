@@ -1,4 +1,4 @@
-/* Navbar Styles - Mobile First Approach */
+/* Navbar Styles - Simplified for Mantine */
 .header {
   background-color: white;
   border-bottom: 1px solid #e9ecef;
@@ -8,6 +8,7 @@
   z-index: 1000;
   transition: box-shadow 0.3s ease;
   font-family: 'Montserrat', sans-serif;
+  width: 100%;
 }
 
 .header:hover {
@@ -21,6 +22,8 @@
   height: 60px;
   padding: 0 1rem;
   max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Logo Section */
@@ -30,6 +33,7 @@
   gap: 0.5rem;
   text-decoration: none;
   flex-shrink: 0;
+  min-width: fit-content;
 }
 
 .logoIcon {
@@ -42,6 +46,7 @@
   border-radius: 12px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+  flex-shrink: 0;
 }
 
 .logoIcon:hover {
@@ -49,20 +54,17 @@
   box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
 }
 
-.logoText {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Desktop Navigation - Hidden by default */
+/* Navigation */
 .desktopNav {
-  display: none;
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Tablet Navigation - Hidden by default */
 .tabletNav {
-  display: none;
+  display: flex;
   flex: 1;
   margin: 0 1rem;
   overflow-x: auto;
@@ -75,29 +77,13 @@
 }
 
 .tabletNavInner {
+  display: flex;
   min-width: max-content;
-  padding: 0 0.5rem;
+  gap: 0.75rem;
+  align-items: center;
 }
 
-.tabletLink {
-  color: #495057;
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tabletLink:hover {
-  color: #4A90E2;
-  background-color: #f8f9fa;
-}
-
-/* Desktop Link Styles */
+/* Link Styles */
 .link {
   color: #495057;
   text-decoration: none;
@@ -107,8 +93,8 @@
   padding: 0.5rem 1rem;
   border-radius: 6px;
   transition: all 0.2s ease;
-  position: relative;
   white-space: nowrap;
+  position: relative;
 }
 
 .link:hover {
@@ -142,22 +128,43 @@
   width: 80%;
 }
 
+.tabletLink {
+  color: #495057;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tabletLink:hover {
+  color: #4A90E2;
+  background-color: #f8f9fa;
+}
+
 /* Right Section */
 .rightSection {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+  min-width: fit-content;
 }
 
-/* Social Icons - Hidden by default */
 .socialIcons {
-  display: none;
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .socialIcon {
   color: #6c757d;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .socialIcon:hover {
@@ -166,9 +173,9 @@
   background-color: #f8f9fa;
 }
 
-/* Mobile Menu */
 .burger {
-  display: block;
+  display: flex;
+  flex-shrink: 0;
 }
 
 /* Mobile Drawer */
@@ -210,130 +217,27 @@
   border-top: 1px solid #e9ecef;
 }
 
-/* Responsive Breakpoints */
-
-/* Mobile Small (320px - 479px) */
-@media (max-width: 479px) {
+/* Responsive adjustments using CSS only */
+@media (max-width: 480px) {
   .inner {
     height: 55px;
     padding: 0 0.75rem;
   }
   
   .logoIcon {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
   }
 }
 
-/* Mobile Large (480px - 767px) */
-@media (min-width: 480px) and (max-width: 767px) {
-  .inner {
-    height: 60px;
-    padding: 0 1rem;
-  }
-  
-  .logoIcon {
-    width: 35px;
-    height: 35px;
-  }
-}
-
-/* Tablet (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .inner {
-    height: 65px;
-    padding: 0 1.5rem;
-  }
-  
-  .logoIcon {
-    width: 38px;
-    height: 38px;
-  }
-  
-  .tabletNav {
-    display: block;
-  }
-  
-  .socialIcons {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .burger {
-    display: none;
-  }
-}
-
-/* Desktop Small (1024px - 1199px) */
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .inner {
-    height: 70px;
-    padding: 0 2rem;
-  }
-  
-  .logoIcon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .desktopNav {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .socialIcons {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .burger {
-    display: none;
-  }
-  
-  .tabletNav {
-    display: none;
-  }
-}
-
-/* Desktop Large (1200px+) */
 @media (min-width: 1200px) {
   .inner {
-    height: 70px;
     padding: 0 3rem;
-  }
-  
-  .logoIcon {
-    width: 40px;
-    height: 40px;
+    height: 70px;
   }
   
   .desktopNav {
-    display: flex;
     gap: 2rem;
-  }
-  
-  .socialIcons {
-    display: flex;
-    gap: 0.75rem;
-  }
-  
-  .burger {
-    display: none;
-  }
-  
-  .tabletNav {
-    display: none;
-  }
-}
-
-/* High-resolution displays */
-@media (min-width: 1440px) {
-  .inner {
-    padding: 0 4rem;
-  }
-  
-  .desktopNav {
-    gap: 2.5rem;
   }
   
   .link {
@@ -342,44 +246,27 @@
   }
 }
 
-/* Ultra-wide displays */
-@media (min-width: 1920px) {
-  .inner {
-    padding: 0 6rem;
-  }
+/* Drawer Styles - Fix white space issue */
+.drawer {
+  position: fixed !important;
+  z-index: 1000 !important;
 }
 
-/* Touch devices optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .link:hover::after {
-    width: 0;
-  }
-  
-  .link:active {
-    transform: scale(0.98);
-  }
-  
-  .mobileLink:hover {
-    transform: none;
-  }
-  
-  .mobileLink:active {
-    transform: scale(0.98);
-  }
+/* Ensure drawer doesn't create extra space when closed */
+.drawer :global(.mantine-Drawer-root) {
+  position: fixed !important;
+  pointer-events: none;
 }
 
-/* Reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .header,
-  .logoIcon,
-  .link,
-  .tabletLink,
-  .mobileLink,
-  .socialIcon {
-    transition: none;
-  }
-  
-  .link::after {
-    transition: none;
-  }
+.drawer :global(.mantine-Drawer-root[data-opened="true"]) {
+  pointer-events: auto;
+}
+
+.drawer :global(.mantine-Drawer-content) {
+  position: fixed !important;
+}
+
+/* Prevent drawer from affecting document flow */
+.drawer :global(.mantine-Drawer-root:not([data-opened="true"])) {
+  display: none !important;
 }

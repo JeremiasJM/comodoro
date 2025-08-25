@@ -84,50 +84,45 @@ const MapController = ({ center, zoom }) => {
   return null;
 };
 
-// Datos de ejemplo de centros de salud
+// Componente para restringir el mapa a Comodoro Rivadavia
+const ComodoroBoundsController = () => {
+  const map = useMap();
+  
+  useEffect(() => {
+    // Configurar límites estrictos
+    map.setMaxBounds(COMODORO_BOUNDS);
+    map.options.maxBoundsViscosity = 1.0;
+    
+    // Evento que se ejecuta cuando el usuario intenta moverse fuera de los límites
+    const onMoveEnd = () => {
+      const center = map.getCenter();
+      if (!isWithinComodoro(center.lat, center.lng)) {
+        // Forzar regreso al centro de Comodoro
+        map.setView(COMODORO_CENTER, 13);
+      }
+    };
+    
+    map.on('moveend', onMoveEnd);
+    
+    // Cleanup
+    return () => {
+      map.off('moveend', onMoveEnd);
+    };
+  }, [map]);
+  
+  return null;
+};
+
+// Datos de ejemplo de centros de salud en Comodoro Rivadavia
 const healthCenters = [
   {
     id: 1,
-    name: "Centro de Salud Municipal",
-    address: "Av. Principal 123, Centro",
-    lat: -26.8083,
-    lng: -65.2176,
-    phone: "+54 381 123-4567",
-    email: "centro@salud.gov.ar",
-    website: "www.saludcentral.gov.ar",
-    hours: {
-      weekdays: "8:00 - 20:00",
-      weekends: "9:00 - 17:00"
-    },
-    services: ["test", "orientacion", "preservativos"],
-    type: "publico",
-    description: "Centro de salud público con servicios integrales"
-  },
-  {
-    id: 2,
-    name: "Clínica Privada San Miguel",
-    address: "Calle Salud 456, Barrio Norte",
-    lat: -26.8183,
-    lng: -65.2076,
-    phone: "+54 381 765-4321",
-    email: "info@sanmiguel.com.ar",
-    website: "www.clinicasanmiguel.com.ar",
-    hours: {
-      weekdays: "7:00 - 22:00",
-      weekends: "8:00 - 20:00"
-    },
-    services: ["test", "prep", "pep", "orientacion"],
-    type: "privado",
-    description: "Clínica privada especializada en salud reproductiva"
-  },
-  {
-    id: 3,
-    name: "Hospital Regional Norte",
-    address: "Ruta Nacional 9 Km 5",
-    lat: -26.7983,
-    lng: -65.2276,
-    phone: "+54 381 888-9999",
-    email: "contacto@hospitalregional.gov.ar",
+    name: "Hospital Regional Comodoro Rivadavia",
+    address: "Av. Hipólito Yrigoyen 950, Comodoro Rivadavia",
+    lat: -45.8648,
+    lng: -67.4956,
+    phone: "+54 297 446-9300",
+    email: "hospital@comodoro.gov.ar",
     website: "www.hospitalregional.gov.ar",
     hours: {
       weekdays: "24 horas",
@@ -138,13 +133,78 @@ const healthCenters = [
     description: "Hospital regional con atención 24 horas"
   },
   {
+    id: 2,
+    name: "Centro de Salud Barrio Güemes",
+    address: "Barrio Güemes, Comodoro Rivadavia",
+    lat: -45.8583,
+    lng: -67.4889,
+    phone: "+54 297 444-5678",
+    email: "centroguemes@comodoro.gov.ar",
+    hours: {
+      weekdays: "8:00 - 20:00",
+      weekends: "9:00 - 17:00"
+    },
+    services: ["test", "orientacion", "preservativos"],
+    type: "publico",
+    description: "Centro de salud público barrial"
+  },
+  {
+    id: 3,
+    name: "Centro de Salud Km 3",
+    address: "Km 3, Comodoro Rivadavia",
+    lat: -45.8756,
+    lng: -67.5123,
+    phone: "+54 297 447-8901",
+    email: "centrokm3@comodoro.gov.ar",
+    hours: {
+      weekdays: "8:00 - 18:00",
+      weekends: "9:00 - 14:00"
+    },
+    services: ["test", "orientacion", "preservativos"],
+    type: "publico",
+    description: "Centro de salud en zona sur de la ciudad"
+  },
+  {
     id: 4,
-    name: "Centro Comunitario Sur",
-    address: "Barrio El Progreso, Manzana 12",
-    lat: -26.8283,
-    lng: -65.1976,
-    phone: "+54 381 555-0123",
-    email: "centro.sur@comunidad.org",
+    name: "Centro de Salud General Mosconi",
+    address: "General Mosconi, Comodoro Rivadavia",
+    lat: -45.8456,
+    lng: -67.5234,
+    phone: "+54 297 448-1234",
+    email: "centromosconi@comodoro.gov.ar",
+    hours: {
+      weekdays: "7:00 - 19:00",
+      weekends: "8:00 - 16:00"
+    },
+    services: ["test", "prep", "orientacion", "preservativos"],
+    type: "publico",
+    description: "Centro de salud en zona norte"
+  },
+  {
+    id: 5,
+    name: "Clínica Comodoro",
+    address: "San Martín 341, Comodoro Rivadavia",
+    lat: -45.8612,
+    lng: -67.4834,
+    phone: "+54 297 447-5555",
+    email: "info@clinicacomodoro.com.ar",
+    website: "www.clinicacomodoro.com.ar",
+    hours: {
+      weekdays: "7:00 - 22:00",
+      weekends: "8:00 - 20:00"
+    },
+    services: ["test", "prep", "pep", "orientacion"],
+    type: "privado",
+    description: "Clínica privada en el centro de la ciudad"
+  },
+  {
+    id: 6,
+    name: "Centro Comunitario Restinga Alí",
+    address: "Restinga Alí, Comodoro Rivadavia",
+    lat: -45.8789,
+    lng: -67.5456,
+    phone: "+54 297 449-0123",
+    email: "restingaali@comunidad.org",
     hours: {
       weekdays: "9:00 - 18:00",
       weekends: "10:00 - 14:00"
@@ -179,10 +239,31 @@ const getTypeColor = (type) => {
   return colors[type] || '#4A90E2';
 };
 
-// Función para abrir direcciones en Google Maps
+// Función para abrir direcciones en Google Maps (solo para ubicaciones en Comodoro)
 const openDirections = (center) => {
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${center.lat},${center.lng}`;
+  // Verificar que el centro esté dentro de Comodoro antes de abrir direcciones
+  if (!isWithinComodoro(center.lat, center.lng)) {
+    alert('Esta ubicación está fuera de Comodoro Rivadavia.');
+    return;
+  }
+  
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${center.lat},${center.lng}&destination_place_id=ChIJg3wQdMYXdL0Rsqyg4w2O&travelmode=driving`;
   window.open(url, '_blank');
+};
+
+// Coordenadas de Comodoro Rivadavia - Límites más estrictos
+const COMODORO_CENTER = [-45.8648, -67.4956];
+const COMODORO_BOUNDS = [
+  [-45.9100, -67.5800], // Suroeste - límites más ajustados
+  [-45.8200, -67.4200]  // Noreste - límites más ajustados
+];
+
+// Función para verificar si una coordenada está dentro de Comodoro Rivadavia
+const isWithinComodoro = (lat, lng) => {
+  return lat >= COMODORO_BOUNDS[0][0] && 
+         lat <= COMODORO_BOUNDS[1][0] && 
+         lng >= COMODORO_BOUNDS[0][1] && 
+         lng <= COMODORO_BOUNDS[1][1];
 };
 
 const InteractiveMap = () => {
@@ -197,9 +278,12 @@ const InteractiveMap = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef(null);
 
-  // Filtrar centros de salud
+  // Filtrar centros de salud (solo los que están en Comodoro Rivadavia)
   useEffect(() => {
-    let filtered = healthCenters;
+    // Primero filtrar solo los centros que están dentro de Comodoro
+    let filtered = healthCenters.filter(center => 
+      isWithinComodoro(center.lat, center.lng)
+    );
 
     if (selectedServices.length > 0) {
       filtered = filtered.filter(center =>
@@ -223,20 +307,32 @@ const InteractiveMap = () => {
     setFilteredCenters(filtered);
   }, [selectedServices, selectedType, searchQuery]);
 
-  // Obtener ubicación del usuario
+  // Obtener ubicación del usuario (solo si está en Comodoro Rivadavia)
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          
+          // Verificar si la ubicación está dentro de los límites estrictos de Comodoro Rivadavia
+          if (isWithinComodoro(lat, lng)) {
+            setUserLocation({ lat, lng });
+          } else {
+            console.log('Ubicación fuera de Comodoro Rivadavia');
+            // Mostrar mensaje y centrar en Comodoro
+            alert('Tu ubicación está fuera de Comodoro Rivadavia. El mapa se centrará en la ciudad para mostrarte los servicios disponibles.');
+            // No establecer userLocation para forzar el uso del centro de Comodoro
+          }
         },
         (error) => {
           console.log('Error obteniendo ubicación:', error);
+          // En caso de error, centrar en Comodoro
+          alert('No se pudo obtener tu ubicación. El mapa se centrará en Comodoro Rivadavia.');
         }
       );
+    } else {
+      alert('Tu navegador no soporta geolocalización. El mapa se centrará en Comodoro Rivadavia.');
     }
   };
 
@@ -373,10 +469,25 @@ const InteractiveMap = () => {
         <Card shadow="sm" padding={0} radius="md" withBorder className={classes.mapContainer}>
           <Box className={classes.mapWrapper}>
             <MapContainer
-              center={userLocation || [-26.8083, -65.2176]}
-              zoom={userLocation ? 14 : 12}
-              style={{ height: '500px', width: '100%', borderRadius: '12px' }}
+              center={userLocation || COMODORO_CENTER}
+              zoom={userLocation ? 15 : 13}
+              style={{ 
+                height: '500px', 
+                width: '100%', 
+                borderRadius: '12px',
+                zIndex: 1,
+                position: 'relative'
+              }}
               scrollWheelZoom={true}
+              maxBounds={COMODORO_BOUNDS}
+              maxBoundsViscosity={1.0}
+              minZoom={12}
+              maxZoom={18}
+              doubleClickZoom={true}
+              dragging={true}
+              keyboard={false}
+              attributionControl={true}
+              zoomControl={true}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -384,9 +495,11 @@ const InteractiveMap = () => {
               />
               
               <MapController 
-                center={userLocation || [-26.8083, -65.2176]} 
-                zoom={userLocation ? 14 : 12} 
+                center={userLocation || COMODORO_CENTER} 
+                zoom={userLocation ? 15 : 13} 
               />
+              
+              <ComodoroBoundsController />
 
               {/* Marcador de ubicación del usuario */}
               {userLocation && (

@@ -1,0 +1,55 @@
+/* Footer Styles - Minimal CSS, Maximum Mantine */
+.footer {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: white;
+  width: 100%;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+.logoIcon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+}
+
+.contactLink:hover {
+  color: #60a5fa !important;
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  background: rgba(96, 165, 250, 0.2) !important;
+  color: #60a5fa !important;
+  transform: translateY(-2px);
+}
+
+.heart {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .logoIcon,
+  .socialIcon {
+    transition: none;
+  }
+  
+  .heart {
+    animation: none;
+  }
+}
